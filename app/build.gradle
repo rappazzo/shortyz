@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    Properties props = new Properties()
-    props.load(new FileInputStream(System.getProperty("user.home")+"/androidkeyinfo.properties"))
     compileSdkVersion 21
     buildToolsVersion "22.0.1"
     defaultConfig {
@@ -10,25 +8,10 @@ android {
         targetSdkVersion 21
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
-    signingConfigs {
-        debug {
-            storeFile file(System.getProperty("user.home")+"/androidkeystore")
-            storePassword props.getProperty("storePassword")
-            keyAlias "robert \"kebernet\" cooper"
-            keyPassword props.getProperty("keyPassword")
-        }
-        release {
-            storeFile file(System.getProperty("user.home")+"/androidkeystore")
-            storePassword props.getProperty("storePassword")
-            keyAlias "robert \"kebernet\" cooper"
-            keyPassword props.getProperty("keyPassword")
-        }
-    }
     buildTypes {
         release {
-             signingConfig signingConfigs.release
-             minifyEnabled true
-             proguardFile file('src/build/proguard-android.txt')
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
